@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://tinyvmi.github.io/"
 
 languageCode = "en-us"
 DefaultContentLanguage = "en"
@@ -6,8 +6,18 @@ title = "TinyVMI Documentation"
 theme = "docdock"
 #theme = "hugo-theme-learn"
 #themesdir = "../.."
-pygmentsCodeFences = true
-pygmentsStyle = "monokailight"
+
+#pygmentsCodeFences = true
+#pygmentsStyle = "monokailight"
+
+#pygmentsOptions = ""
+# Use the Chroma stylesheet
+#pygmentsUseClasses = true
+#pygmentsUseClassic = false
+
+# See https://help.farbox.com/pygments.html
+#pygmentsStyle = "friendly"
+
 
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir= false
