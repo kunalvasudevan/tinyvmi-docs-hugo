@@ -7,7 +7,7 @@ theme = "docdock"
 #theme = "hugo-theme-learn"
 #themesdir = "../.."
 
-#pygmentsCodeFences = true
+pygmentsCodeFences = true
 #pygmentsStyle = "monokailight"
 
 #pygmentsOptions = ""

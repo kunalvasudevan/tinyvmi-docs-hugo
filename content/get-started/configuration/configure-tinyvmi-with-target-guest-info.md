@@ -76,12 +76,12 @@ Currently, TinyVMI cannot convert domain string name to domain ID by querying Xe
 Therefore, a hardcoded domain ID is required. To do so, change DOMAIN_ID and DOMAIN_NAME macro definition in file ``tinyvmi/include/domain_id.h``. For example:
 
 {{<highlight c>}}
-    #ifndef DOMAIN_ID_H
-    #define DOMAIN_ID_H
+#ifndef DOMAIN_ID_H
+#define DOMAIN_ID_H
 
-    #define DOMAIN_ID  1
+#define DOMAIN_ID  1
 
-    #define DOMAIN_NAME "xen16a"
+#define DOMAIN_NAME "xen16a"
 
-    #endif // DOMAIN_ID_H
+#endif // DOMAIN_ID_H
 {{</highlight>}}
