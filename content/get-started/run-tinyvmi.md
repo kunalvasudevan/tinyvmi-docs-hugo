@@ -16,7 +16,7 @@ cd xen-src/stubdom/tinyvmi
 sudo bash run.tiny.sh build 
 ```
 
-Or to only build TinyVMI without creating VM:
+Or to only make TinyVMI without creating VM:
 
 ```bash
 cd xen-src/stubdom/tinyvmi
@@ -27,7 +27,7 @@ Or to only run TinyVMI without rebuild:
 
 ```bash
 cd xen-src/stubdom/tinyvmi
-sudo bash run.tiny.sh make #This will only Run TinyVMI without re-build.
+sudo bash run.tiny.sh
 ```
 
 For more details, see the following steps.
