@@ -2,15 +2,15 @@
 title= "Update XSM FLASK Policy"
 date= 2018-06-04T22:21:07-04:00
 description = ""
-weight = 1
+weight = 2
 +++
 
 
 {{% panel theme="success" header="NOTE" %}}
 
-- Before this step, it is required to install Xen with FLASK enabled and to have a guest VM to be monitored by TinyVMI. To do so, see instructions [here]({{<ref "get-started/install-xen-with-flask.md" >}}).
+- Before this step, it is required to install Xen with FLASK enabled and to have a guest VM to be monitored by TinyVMI. To do so, see instructions [here]({{<ref "step-by-step/install-xen-with-flask.md" >}}).
 
-- The following assumes the XSM FLASK policy is booted from file ``/boot/flask/xenpolicy``. However, the file name can be changed to other ones as shown [here]({{<ref "get-started/install-xen-with-flask.md#update-grub-linux-xen" >}}). Or can be dynamically loaded after booting via ``xl loadpolicy <xenpolicy_file>``.
+- The following assumes the XSM FLASK policy is booted from file ``/boot/flask/xenpolicy``. However, the file name can be changed to other ones as shown [here]({{<ref "step-by-step/install-xen-with-flask.md#update-grub-linux-xen" >}}). Or can be dynamically loaded after booting via ``xl loadpolicy <xenpolicy_file>``.
 
 {{% /panel %}}
 
@@ -45,4 +45,4 @@ OR you can make the system boot with the newest policy by
 
     sudo cp tools/flask/policy/xenpolicy-4.10.0 /boot/flask/
     
-and change grub options accordingly (see [Update Grub Scripts with Xen XSM]({{<relref "get-started/install-xen-with-flask.md#update-grub" >}})).
+and change grub options accordingly (see [Update Grub Scripts with Xen XSM]({{<relref "step-by-step/install-xen-with-flask.md#update-grub" >}})).

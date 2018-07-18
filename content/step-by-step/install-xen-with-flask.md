@@ -12,23 +12,23 @@ weight = 1
 The following steps are tested with Xen 4.10.0, other Xen versions with 4.8 and onward should also be fine. The tested host OSes include Ubuntu 16.04, and 18.04. Other Linux based system should be OK as long as they are compatitable with Xen hypervisor.
 
 {{% panel theme="success" header="Steps"%}}
-+ [1. Install Prerequest Packages of Xen]({{< ref "#prerequest" >}})
++ [1. Install Prerequest Packages of Xen]({{< relref "#prerequest" >}})
 
-+ [2. Install Xen]({{< ref "#install-xen" >}})
++ [2. Install Xen]({{< relref "#install-xen" >}})
 
-+ [3. Install XSM Policy]({{< ref "#install-xsm" >}})
++ [3. Install XSM Policy]({{< relref "#install-xsm" >}})
 
-+ [4. Update GRUB Scripts with Xen XSM ]({{< ref "#update-grub" >}})
++ [4. Update GRUB Scripts with Xen XSM ]({{< relref "#update-grub" >}})
 
-+ [5. Setup Xen Guest Network with WiFi or Ethernet]({{< ref "#xen-network" >}})
++ [5. Setup Xen Guest Network with WiFi or Ethernet]({{< relref "#xen-network" >}})
 
-+ [6. Install Xen Guest]({{< ref "#xen-guest" >}})
++ [6. Install Xen Guest]({{< relref "#xen-guest" >}})
 
-+ [7. Usefull Links]({{<ref "#links">}})
++ [7. Usefull Links]({{<relref "#links">}})
 
 {{%/panel %}}
 
-## 1. Install Prerequest Packages of Xen {#prerequest}
+#### 1. Install Prerequest Packages of Xen {#prerequest}
 
 Install prerequested packages of Xen. Official list of packages can be found [here](https://wiki.xenproject.org/wiki/Compiling_Xen_From_Source#Build_Dependencies). For a quick install, there is a handy script for [Ubuntu 18.04](https://gist.githubusercontent.com/cnlelema/5f14675364a47c6ffa7e34bb6d3ad470/raw/41cffdbc8d0c689e8d9ba78d886a215125d833d9/install-pre-ubu18-xen4.10.0.sh) and [Ubuntu 16.04](https://gist.githubusercontent.com/cnlelema/ca366be63573dbdaa14938107c611897/raw/ff3a4e268c1db8397ba116c695c004ac10821736/install-pre-ubu16-xen4.10.0.sh). You can run it to install all the dependences directly:
 ```
@@ -43,16 +43,16 @@ wget https://gist.githubusercontent.com/cnlelema/ca366be63573dbdaa14938107c61189
 sudo bash install-pre-ubu16-xen4.10.0.sh
 ```
 
-## 2. Install Xen {#install-xen}
+#### 2. Install Xen {#install-xen}
 
-### 2.1 configure Xen
+##### 2.1 configure Xen
 
 Open a terminal in the source code of Xen. Run:
 
     cd xen-src/
     ./configure --enable-systemd --enable-stubdom  
     
-### 2.2 enable XSM
+##### 2.2 enable XSM
 
 Run the following command in the terminal:
 
@@ -60,7 +60,7 @@ Run the following command in the terminal:
     
 There will be a graphical interactive interface shown in the terminal. Then choose ``Common Features -> enable XSM``, with no other sub options.
 
-### 2.3 patch qemu-xen (only for Ubuntu 18.04) {#patch-qemu-xen}
+##### 2.3 patch qemu-xen (only for Ubuntu 18.04) {#patch-qemu-xen}
 
 Due to the upgraded libc in ubuntu 18.04, some errors would come out when compiling qemu-xen in the old release of Xen. [More details](https://tinyvmi.github.io/gsoc-blog/post/02-build-ubu18/). We need to upgrade qemu-xen to the lastest version to match 
 
@@ -69,7 +69,7 @@ Due to the upgraded libc in ubuntu 18.04, some errors would come out when compil
     git clone https://xenbits.xen.org/git-http/qemu-xen.git
     cd -
     
-### 2.4 build & install Xen
+##### 2.4 build & install Xen
     
     cd xen-src/
     make dist -j4
@@ -77,7 +77,7 @@ Due to the upgraded libc in ubuntu 18.04, some errors would come out when compil
     
     sudo make install
 
-### 2.5 post-install operations
+##### 2.5 post-install operations
 
     sudo ldconfig
 
@@ -89,21 +89,21 @@ Due to the upgraded libc in ubuntu 18.04, some errors would come out when compil
     sudo systemctl enable xen-watchdog.service
 
 
-## 3. Install XSM Policy {#install-xsm}
+#### 3. Install XSM Policy {#install-xsm}
 
-### 3.1 compile FLASK policy
+##### 3.1 compile FLASK policy
     
     cd xen-src/
     make -C tools/flask/policy
         
-### 3.2 copy policy to boot dir
+##### 3.2 copy policy to boot dir
     
     sudo mkdir /boot/flask/
     sudo cp tools/flask/policy/xenpolicy-4.10.0 /boot/flask/
     cd /boot/flask
     sudo ln -s xenpolicy-4.10.0 xenpolicy
        
-## 4. Update Grub Scripts with Xen XSM {#update-grub}
+#### 4. Update Grub Scripts with Xen XSM {#update-grub}
 
 {{% panel %}}
 
@@ -113,7 +113,7 @@ WARNING 2: The following commands are changing your system booting parameters. M
 
 {{% /panel %}}
 
-### 4.1 update /etc/default/grub
+##### 4.1 update /etc/default/grub
 _We need to enable XSM flask policy in boot command parameters._
 Add the following line to the file ``/etc/default/grub`` (backup before change: ``cd /etc/default && cp grub grub.backup``) :
 
@@ -121,7 +121,7 @@ Add the following line to the file ``/etc/default/grub`` (backup before change: 
 
 Change values of ``dom0_mem`` and ``max`` accordingly. They are the actual main memory you want to allocate to Domain 0 on Xen. Make sure they are the same. For the reason, see [ Why should I dedicate fixed amount of memory for Xen dom0](https://wiki.xenproject.org/wiki/Xen_Project_Best_Practices#Why_should_I_dedicate_fixed_amount_of_memory_for_Xen_Project_dom0.3F). 
 
-### 4.2 update /etc/grub.d/20_linux_xen {#update-grub-linux-xen}
+##### 4.2 update /etc/grub.d/20_linux_xen {#update-grub-linux-xen}
 
 _This step will change grub auto generation script to load XSM policy module automatically._ 
 Under Debian systems, you can find the grub auto-generate script at /etc/grub.d/20_linux_xen. **Find the correct place** you need to insert the line of 
@@ -144,11 +144,11 @@ For example, on ubuntu system, the following line is changed:
    sed "s/^/$submenu_indentation/" << EOF
 {{< / highlight >}}
 
-### 4.3 generate grub files
+##### 4.3 generate grub files
 
 _Run 'sudo update-grub'._ This will update your grub files (/boot/grub/grub.cfg). 
 
-### 4.4 check grub file
+##### 4.4 check grub file
 A successful update of grub should contain at least two changes in the menuentry of file `` /boot/grub/grub.cfg``: 
 
 **a)** the xen kernel loading command line should have options of ``dom0_mem`` and ``flask``. For example, 
@@ -192,7 +192,7 @@ f79-682485d1507f
 {{< / highlight >}}
 
 
-### 4.5 Reboot
+##### 4.5 Reboot
 
 Now you can reboot the system to see whether Xen is successfully installed. If successfull, you will be able to boot with Xen hypervisor on grub menu during booting. 
 
@@ -204,11 +204,11 @@ Name        ID  Mem     VCPUs   State       Time(s)     Security Label
 Domain-0    0   3096    4       r-----      14753.8     system_u:system_r:dom0_t
 {{< / highlight >}}
 
-## 5. Setup Xen Guest Network with WiFi or Ethernet {#xen-network}
+#### 5. Setup Xen Guest Network with WiFi or Ethernet {#xen-network}
 
-### 5.1 If WiFi on host:
-    
-#### 5.1.1 Create a network bridge 
+If WiFi on host, follow [5.1]({{<relref "#wifi-bridge">}}) ~ [5.3]({{<relref "#wifi-guest-if">}}) to set up a NAT network for guest to access Internet.
+If Ethernet, please jump to follow [5.4]({{relref "#eth"}}).
+##### 5.1 Create a network bridge {#wifi-bridge}
 
 A bridge could be created manually by running:
 
@@ -247,7 +247,7 @@ Furthermore, ``ifconfig`` will list the bridge info as following:
 
 If you see outputs above, a bridge is successfully created. Then go to next step.
 
-#### 5.1.2 Enable forwarding and NAT
+##### 5.2 Enable forwarding and NAT {#wifi-nat-forward}
 
 change file /etc/sysctl.conf, add (or uncomment) the line:
 
@@ -265,7 +265,7 @@ Enable forwarding and NAT(postrouting & masquerade) with iptables
     
 replace ``<wifi_interface>`` with the name of your WiFi interface, such as ``wlps0``, or ``lan0``, etc.
 
-#### 5.1.3 In guest:
+##### 5.3 In guest: {#wifi-guest-if}
 
 Update ( adding the bridge configs to VM). To connect the VM to the bridge ddit VM (DomU) cfg and modify the vif line (virtual interface).
 
@@ -283,7 +283,7 @@ you can also leave out the ip= part and set that in the domU:
     dns-nameservers 8.8.8.8 8.8.4.4
         
 
-### 5.2 If Ethernet on host:
+##### 5.4 If Ethernet on host: {#eth}
 
 Please refer to [Network Configuration Examples -- Debian stype bridge configuration](https://wiki.xen.org/wiki/Network_Configuration_Examples_(Xen_4.1%2B)#Example_Debian-style_bridge_configuration_.28e.g._Debian.2C_Ubuntu.29)
 

@@ -2,13 +2,13 @@
 title= "Get Target Guest Info"
 date= 2018-06-04T22:24:45-04:00
 description = ""
-weight = 3
+weight = 6
 +++
 
 
 #### Start Target VM with FLASK label {#guest-start}
 
-According to our setup in [Update XSM FLASK Policy]({{<ref "get-started/configuration/update-xsm-flask-policy.md">}}), a VM labeled with ``domU`` has priviledges to intropsect another domU's physical memory. Now we can label TinyVMI with ``domU`` to grant the VM of TinyVMI with those privileges. 
+According to our setup in [Update XSM FLASK Policy]({{<ref "step-by-step/configuration/update-xsm-flask-policy.md">}}), a VM labeled with ``domU`` has priviledges to intropsect another domU's physical memory. Now we can label TinyVMI with ``domU`` to grant the VM of TinyVMI with those privileges. 
 
 Change xl config file for the target VM. Add the following line to this file:
 

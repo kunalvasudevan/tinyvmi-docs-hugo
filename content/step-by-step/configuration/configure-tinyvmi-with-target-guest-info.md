@@ -2,7 +2,7 @@
 title= "Configure TinyVMI with Target Info"
 date= 2018-06-04T22:25:06-04:00
 description = ""
-weight = 4
+weight = 8
 +++
 
 
