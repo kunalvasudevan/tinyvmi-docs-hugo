@@ -11,19 +11,24 @@ toc = true
 
 1, compile and install Xen from given source code of xen-4.10.0, with XSM enabled.
 
+    # install prerequest for Ubuntu
+    wget https://gist.githubusercontent.com/cnlelema/5f14675364a47c6ffa7e34bb6d3ad470/raw/41cffdbc8d0c689e8d9ba78d886a215125d833d9/install-pre-ubu18-xen4.10.0.sh
+    sudo bash install-pre-ubu18-xen4.10.0.sh
+
     # download Xen source
-    git clone https://github.com/tinyvmi/xen.git
+    git clone --recurse-submoduleshttps://github.com/tinyvmi/xen.git
     cd xen
 
+
     # configure xen
-    ./configure
+    ./configure --enable-stubdom --enable-systemd
 
     # enable XSM support
     make -C xen menuconfig
-    # choose 'Common Features -> Xen Security Modules support' 
+    # choose 'Common Features -> Xen Security Modules support', no other sub options. 
     
     # compile & install Xen
-    make dist -j4  # judge -jN number according to number of cores on your machine
+    make dist -jN  #set N to be number of cores/threads on your machine.
     sudo make install 
 
     sudo systemctl enable xen-qemu-dom0-disk-backend.service
@@ -37,9 +42,21 @@ toc = true
     sudo mkdir /boot/flaskpolicy
     sudo cp tools/flask/policy/xenpolicy-4.10.0 /boot/flaskpolicy/
 
+    # backup
     sudo cp /etc/grub.d/20_linux_xen /etc/grub.d/back_up_20_linux_xen
 
+    # Add the following line to /etc/grub.d/20_linux_xen
+    #     module /boot/flaskpolicy/xenpolicy-4.10.0
+    # This will append this line as the last command of Xen grub entry
     sudo sed -i '/--nounzip/a\\tmodule /boot/flaskpolicy/xenpolicy-4.10.0' /etc/grub.d/20_linux_xen
+
+    # backup 
+    sudo cp /etc/default/grub /etc/default/grub-backup
+
+    # Add the following line to the file /etc/default/grub:
+    #     GRUB_CMDLINE_XEN_DEFAULT="dom0_mem=3096M,max:3096M flask=enforcing"
+    # This will be appended to the option of Linux kernel in the grub entry
+    sudo sed -i '/GRUB_CMDLINE_LINUX=/aGRUB_CMDLINE_XEN_DEFAULT=\"dom0_mem=3096M,max:3096M flask=enforcing\"' /etc/default/grub
 
     sudo update-grub
 
@@ -53,7 +70,7 @@ toc = true
 - [Get Target Guest Kernel Info]({{<relref "step-by-step/configuration/get-target-guest-info.md" >}});
 - [Configure TinyVMI with Target Guest Info]({{<relref "step-by-step/configuration/configure-tinyvmi-with-target-guest-info.md">}}).
 
-4, compile and run tinyvmi as follows:
+3, compile and run tinyvmi as follows:
 
 
     # cd ./stubdom/tinyvmi
