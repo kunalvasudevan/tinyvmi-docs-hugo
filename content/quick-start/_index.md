@@ -25,7 +25,10 @@ toc = true
 
     # enable XSM support
     make -C xen menuconfig
-    # choose 'Common Features -> Xen Security Modules support', no other sub options. 
+    # Mark option 
+    #   'Common Features -> Xen Security Modules support', and 
+    #   suboption 'Compile Xen with a built-in security policy'. 
+    # leave other option as is.
     
     # compile & install Xen
     make dist -jN  #set N to be number of cores/threads on your machine.
@@ -37,18 +40,7 @@ toc = true
 
     sudo ldconfig
 
-    # compile & install XSM policy
-    make -C tools/flask/policy
-    sudo mkdir /boot/flaskpolicy
-    sudo cp tools/flask/policy/xenpolicy-4.10.0 /boot/flaskpolicy/
-
-    # backup
-    sudo cp /etc/grub.d/20_linux_xen /etc/grub.d/back_up_20_linux_xen
-
-    # Add the following line to /etc/grub.d/20_linux_xen
-    #     module /boot/flaskpolicy/xenpolicy-4.10.0
-    # This will append this line as the last command of Xen grub entry
-    sudo sed -i '/--nounzip/a\\tmodule /boot/flaskpolicy/xenpolicy-4.10.0' /etc/grub.d/20_linux_xen
+    # enable XSM flask in grub entry options
 
     # backup 
     sudo cp /etc/default/grub /etc/default/grub-backup
@@ -60,6 +52,7 @@ toc = true
 
     sudo update-grub
 
+    # Finally reboot and choose Xen entry upon grub menu
     sudo reboot
 
     # boot to Xen
