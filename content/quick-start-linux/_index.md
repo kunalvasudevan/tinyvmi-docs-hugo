@@ -245,7 +245,13 @@ Then, create new file ``target_libvmi_sym.h`` with the following code:
 * to ASCII string codes: xxd -i System_map_*
 */
 
-#define TARGET_SYSMAP
+#ifndef SYM_FILE_FROM_STRING
+#define SYM_FILE_FROM_STRING
+#endif
+
+#ifdef REKALL_FILE_FROM_STRING
+#undef REKALL_FILE_FROM_STRING
+#endif
 
 #define linux_system_map_string System_map_4_4_0_101_generic
 #define linux_system_map_string_len System_map_4_4_0_101_generic_len

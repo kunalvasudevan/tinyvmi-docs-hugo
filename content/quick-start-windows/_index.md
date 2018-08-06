@@ -303,9 +303,15 @@ Create a C header file named "target_libvmi_sym.h" with the following content:
 #ifndef TARGET_LIBVMI_SYM_H
 #define TARGET_LIBVMI_SYM_H
 
+
+#ifdef SYM_FILE_FROM_STRING
+#undef SYM_FILE_FROM_STRING
+#endif
+
 #ifndef REKALL_FILE_FROM_STRING
 #define REKALL_FILE_FROM_STRING
 #endif  //REKALL_FILE_FROM_STRING
+
 
 #define guest_rekall_string windows7_sp1_rekall_json
 #define guest_rekall_string_len windows7_sp1_rekall_json_len
