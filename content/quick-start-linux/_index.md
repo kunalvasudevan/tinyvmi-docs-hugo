@@ -391,3 +391,41 @@ VMI_TEST: LibVMI init succeeded!
 VMI_TEST: Waiting for events...
 ```
 
+
+
+Create a file with the following C code in Linux guest VM:
+
+```c
+// int3.c in Linux guest
+#include <stdio.h>
+#include <unistd.h>
+
+void loopasm(){
+    __asm__("int $3");
+}
+
+int main(){
+    printf("INT 3 in ASM\n");
+    for (int i = 0; i< 10; i++){
+        Sleep(2);
+        loopasm();
+        printf("INT 3 LOOP %d\n", i);
+    }
+    printf("loop done\n");
+    return 0;
+}
+```
+
+Compile and run it:
+
+```
+gcc int3.c -o int3
+./int3
+```
+
+
+![ubu16_int3](/screenshot/ubu16_int3.png?height=327&classes=border,shadow)
+
+Then on the output of TinyVMI, should like:
+
+![ubu16_int3_tinyvmi](/screenshot/ubu16_int3_tinyvmi.png?height=657&classes=border,shadow)
