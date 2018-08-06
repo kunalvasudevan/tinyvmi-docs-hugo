@@ -17,7 +17,7 @@ Before configure TinyVMI, it is required to install Xen with FLASK enabled and t
 
 + [Update Makefile under xen-src/stubdom/]({{< relref "step-by-step/configuration/update-stubdom-makefile.md" >}})
 
-+ [Get Target Guest Kernel Info]({{< relref "step-by-step/configuration/get-target-guest-info.md" >}})
++ [Get Target Guest Kernel Info (Linux)]({{< relref "step-by-step/configuration/get-target-guest-info-linux.md" >}})
 
 + [Configure TinyVMI with Target Guest Info]({{< relref "step-by-step/configuration/configure-tinyvmi-with-target-guest-info.md" >}})
 

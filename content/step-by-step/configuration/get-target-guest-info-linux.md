@@ -1,5 +1,5 @@
 +++
-title= "Get Target Guest Info"
+title= "Get Target Guest Info (Linux)"
 date= 2018-06-04T22:24:45-04:00
 description = ""
 weight = 6
@@ -13,6 +13,23 @@ According to our setup in [Update XSM FLASK Policy]({{<ref "step-by-step/configu
 Change xl config file for the target VM. Add the following line to this file:
 
     seclabel='system_u:system_r:domU_t'
+
+An example configuration file:
+
+```
+# Kernel image file.
+kernel = "mini-os.gz"
+
+# Initial memory allocation (in megabytes) for the new domain.
+memory = 64
+
+# A name for your domain. All domains must have different names.
+name = "TinyVMI"
+
+on_crash = 'destroy'
+
+seclabel='system_u:system_r:domU_t'
+```
 
 Now you can start target VM by running ``xl create <domain_config_file>``
 
