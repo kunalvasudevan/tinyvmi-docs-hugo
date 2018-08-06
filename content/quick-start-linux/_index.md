@@ -429,3 +429,6 @@ gcc int3.c -o int3
 Then on the output of TinyVMI, should like:
 
 ![ubu16_int3_tinyvmi](/screenshot/ubu16_int3_tinyvmi.png?height=657&classes=border,shadow)
+
+
+We can see the int 3 instruction running in Linux guest is caught by TinyVMI.

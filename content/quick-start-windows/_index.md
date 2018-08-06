@@ -446,3 +446,6 @@ Compile and run it in Windows guest using CodeBlock (or other alternatives).
 Then on the output of TinyVMI, should like:
 
 ![win7_int3_tinyvmi](/screenshot/win7_int3_tinyvmi.png?height=661&classes=border,shadow)
+
+
+We can see the int 3 instruction running in Windows guest is caught by TinyVMI.
