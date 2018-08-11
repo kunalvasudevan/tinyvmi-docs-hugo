@@ -273,12 +273,14 @@ Kernel filename: ntkrnlmp.pdb
 If vmi-win-guid fails to find the Windows kernel in memory, you can use Rekall to examine ntoskrnl.exe on the disk:
 
 ```bash
-sudo su
-kpartx -a /dev/vg0/lvwin7
-mount -o ro /dev/vg0/lvwin7 /mnt
-rekal peinfo -f /mnt/Windows/System32/ntoskrnl.exe > WORKDIR/peinfo.txt
-umount /mnt
-kpartx -d /dev/vg0/lvwin7
+$ sudo kpartx -l /dev/vg0/lvwin7  # This will show all the partiions in the volumn, e,g
+vg0-lvwin7p1 : 0 204800 /dev/vg0/lvwin7 2048
+vg0-lvwin7p2 : 0 41734144 /dev/0/lvwin7 206848
+$ sudo kpartx -a /dev/vg0/lvwin7
+$ sudo mount -o ro /dev/mapper/vg0-lvwin7p2 /mnt  # might change partion to find the Windows/ folder
+$ sudo rekal peinfo -f /mnt/Windows/System32/ntoskrnl.exe > WORKDIR/peinfo.txt
+$ sudo umount /mnt
+$ sudo kpartx -d /dev/vg0/lvwin7
 ```
 
 The generated WORKDIR/peinfo.txt file will contain the required PDB filename and GUID. 
