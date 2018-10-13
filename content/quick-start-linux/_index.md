@@ -11,7 +11,7 @@ toc = true
 
 {{% panel theme="success" header="NOTE" %}}
 This post shows all the comands and configuration files you need to build and run TinyVMI with Linux guest. 
-Most of them can be used directly in your terminal (tested under Ubuntu 18.04), while some fields need to be adjusted according to your build environment. 
+Most of them can be used directly in your terminal on host machine(tested with Ubuntu 16.04, 18.04 as Dom0), while some fields need to be adjusted according to your build environment. 
 For example, your working directory **WORKDIR**, logical volume group name **vg0**, iso image file path, etc.
 
 Acknowledgment:
