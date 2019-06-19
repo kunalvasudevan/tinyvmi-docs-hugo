@@ -62,7 +62,7 @@ There will be a graphical interactive interface shown in the terminal. Then choo
 
 ##### 2.3 patch qemu-xen (only for Ubuntu 18.04) {#patch-qemu-xen}
 
-Due to the upgraded libc in ubuntu 18.04, some errors would come out when compiling qemu-xen in the old release of Xen. [More details](https://tinyvmi.github.io/gsoc-blog/post/02-build-ubu18/). We need to upgrade qemu-xen to the lastest version to match 
+Due to the upgraded libc in ubuntu 18.04, some errors would come out when compiling qemu-xen in the old release of Xen. [More details](https://tinyvmi.github.io/gsoc-blog/post/w02-build-ubu18/). We need to upgrade qemu-xen to the lastest version to match 
 
     cd xen-src/tools/
     rm -r qemu-xen/
